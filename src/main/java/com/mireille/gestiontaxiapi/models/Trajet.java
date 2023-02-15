@@ -1,21 +1,28 @@
 package com.mireille.gestiontaxiapi.models;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
+@Table(name = "T_TRAJET")
 public class Trajet {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String itineraire;
+    @Column(name = "lieuDeDepart")
+    private String lieuDeDepart;
+    @Column(name = "lieuDarrive")
+    private String lieuDArrive;
+    @Column(name = "dureeTrajet")
+    private String dureeTrajet;
+    @Column(name = "prix")
+    private Double prix;
+    @Column(name = "statut")
+    private Enum statut;
+    @OneToOne
+    @JoinColumn(name = "id_Reservation")
+    private Reservation reservation;
+
 
 }

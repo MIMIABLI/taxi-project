@@ -1,4 +1,11 @@
 package com.mireille.gestiontaxiapi.repositories;
 
-public interface AdministrateurRepository {
+import com.mireille.gestiontaxiapi.models.Administrateur;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AdministrateurRepository extends JpaRepository<Administrateur,Long> {
+
+
+
+
 }

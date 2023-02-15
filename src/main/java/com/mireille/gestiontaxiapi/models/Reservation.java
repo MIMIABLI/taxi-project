@@ -1,21 +1,32 @@
 package com.mireille.gestiontaxiapi.models;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.websocket.Decoder;
-
+import javax.persistence.*;
+import java.util.Date;
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
+@Table(name = "T_RESERVATION")
 public class Reservation {
     @Id
     @GeneratedValue
     private Long id;
-    private Decoder.Text txt;
+    @ManyToOne()
+    @JoinColumn(name = "Client_Id")
+    private Client client;
+    @ManyToOne()
+    @JoinColumn(name = "Chauffeur_Id")
+    private Chauffeur chauffeur;
+    @Column(name = "date")
+    private Date date;
+    @Column(name = "heureDepart")
+    private Date heureDepart;
+    @Column(name = "heureDeArrive")
+    private Date heureArrive;
+    @Column(name = "statut")
+    private String statut;
+    @OneToOne
+    @JoinColumn(name = "id_Trajet")
+    private Trajet trajet;
+
+
 }

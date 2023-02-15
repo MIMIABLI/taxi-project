@@ -1,21 +1,32 @@
 package com.mireille.gestiontaxiapi.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import lombok.Data;
+import javax.persistence.*;
 
 @Data
-@NoArgsConstructor @AllArgsConstructor
 @Entity
+@Table(name = "T_ADMIN")
 public class Administrateur {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy =GenerationType.IDENTITY)
     private Long id;
-    private  Integer login;
+    @Column(name = "login")
+    private  String login;
+    @Column(name = "password")
     private  String password;
+    @Column(name = "email")
     private String email;
+
+
+    public Administrateur(Long id, String login, String password, String email) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+
+    }
+
+    public Administrateur() {
+    }
 }
