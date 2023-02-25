@@ -29,19 +29,31 @@ public class ClientService {
         return client;
     }
 
+    public Client findClientByLogin(String clientLogin) throws Exception{
+        Optional<Client> optionalClient = this.clientRepository.findClientByLogin(clientLogin);
+        Client client = new Client();
+
+        if (optionalClient.isPresent()) {
+            client = optionalClient.get();
+
+        } else {
+            throw new Exception("login introuvable");
+        }
+        return client;
+    }
+
     public Client saveClient(Client client) {
         this.clientRepository.save(client);
         return client;
     }
 
     public void delete(Long Id) {
+
         this.clientRepository.deleteById(Id);
     }
 
     public List<Client> findAll() {
-        List<Client> clientList = new ArrayList<>();
-        clientList = this.clientRepository.findAll();
-
+        List<Client> clientList = (List<Client>) this.clientRepository.findAll();
         return clientList;
     }
 

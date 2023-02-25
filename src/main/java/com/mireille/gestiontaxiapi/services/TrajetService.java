@@ -11,8 +11,10 @@ public class TrajetService {
     private TrajetRepository trajetRepository;
 
     public TrajetService(TrajetRepository trajetRepository) {
+
         this.trajetRepository = trajetRepository;
     }
+
     public Trajet findTrajetById (Long Id) throws Exception {
         Optional<Trajet> optionalTrajet = this.trajetRepository.findById(Id);
         Trajet trajet = new Trajet();
@@ -24,10 +26,16 @@ public class TrajetService {
             throw new Exception("id introuvable");
         }
         return trajet;}
-    public Trajet saveTrajet(Trajet trajet){this.trajetRepository.save(trajet);
+
+    public Trajet saveTrajet(Trajet trajet) {
+        this.trajetRepository.save(trajet);
         return trajet;
     }
-    public void delete(Long Id) {this.trajetRepository.deleteById(Id);}
+
+    public void delete(Long Id) {
+        this.trajetRepository.deleteById(Id);
+    }
+
     public List<Trajet> findAll(){
         List<Trajet> trajetList=new ArrayList<>();
         trajetList=this.trajetRepository.findAll();

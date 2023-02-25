@@ -17,6 +17,7 @@ import java.util.List;
         public ReservationController(ReservationService reservationService){
             this.reservationService = reservationService;
         }
+
         @PostMapping("/add")
         public ResponseEntity<Reservation> addReservation(@RequestBody Reservation reservation ){
             Reservation newReservation = reservationService.saveReservation(reservation);
@@ -34,11 +35,13 @@ import java.util.List;
             Reservation reservation=reservationService.findReservationById(id);
             return new ResponseEntity<>(reservation, HttpStatus.OK);
         }
+
         @PutMapping("/update")
         public ResponseEntity<Reservation> updateReservation(@RequestBody Reservation reservation){
             Reservation updateReservation= reservationService.update(reservation);
             return new ResponseEntity<>(updateReservation,HttpStatus.OK);
         }
+
         @DeleteMapping("/delete/{id}")
         public ResponseEntity<?> delete(@PathVariable("id") Long id){
             reservationService.delete(id);

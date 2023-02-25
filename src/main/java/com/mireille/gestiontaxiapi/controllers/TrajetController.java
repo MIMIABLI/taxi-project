@@ -1,6 +1,7 @@
 package com.mireille.gestiontaxiapi.controllers;
 
 
+import com.mireille.gestiontaxiapi.models.Client;
 import com.mireille.gestiontaxiapi.models.Trajet;
 import com.mireille.gestiontaxiapi.services.TrajetService;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ import java.util.List;
             this.trajetService = trajetService;
         }
         @PostMapping("/add")
-        public ResponseEntity<Trajet> addTrajet(@RequestBody Trajet trajet ){
+        public ResponseEntity<Trajet> addTrajet(@RequestBody Trajet trajet) {
             Trajet newTrajet = trajetService.saveTrajet(trajet);
             return new ResponseEntity<>(newTrajet, HttpStatus.CREATED);
         }
