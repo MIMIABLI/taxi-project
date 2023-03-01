@@ -35,6 +35,13 @@ public class ChauffeurController {
 
         }
 
+    @GetMapping("/findbylogin/{login}")
+    public ResponseEntity<Chauffeur> getChauffeurByLogin(@PathVariable("login") String login) throws Exception {
+        Chauffeur chauffeur= chauffeurService.findChauffeurByLogin(login);
+        return new ResponseEntity<>(chauffeur, HttpStatus.OK);
+
+    }
+
         @PutMapping("/update")
         public ResponseEntity<Chauffeur> updateChauffeur(@RequestBody Chauffeur chauffeur){
             Chauffeur newChauffeur=chauffeurService.update(chauffeur);

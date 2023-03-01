@@ -24,9 +24,19 @@ public class ChauffeurService {
 
         }
         return chauffeur;
-
-
     }
+
+    public Chauffeur findChauffeurByLogin(String login) throws Exception {
+        Optional<Chauffeur> optionalChauffeur=this.chauffeurRepository.findByLogin(login);
+        Chauffeur chauffeur= new Chauffeur();
+        if (optionalChauffeur.isPresent()) {
+            chauffeur= optionalChauffeur.get();
+        }else {
+            throw new Exception("login introuvable");
+        }
+        return chauffeur;
+    }
+
     public Chauffeur saveChauffeur(Chauffeur user){
         this.chauffeurRepository.save(user);
         return user;

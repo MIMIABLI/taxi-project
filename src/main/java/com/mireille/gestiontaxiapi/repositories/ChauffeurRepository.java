@@ -9,5 +9,6 @@ import java.util.Optional;
 @Repository
 public interface ChauffeurRepository extends JpaRepository<Chauffeur,Long> {
     void deleteChauffeurById(Long Id);
+    Optional<Chauffeur> findByLogin(String login);
 
 }

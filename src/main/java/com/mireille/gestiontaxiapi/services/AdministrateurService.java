@@ -27,9 +27,20 @@ public class AdministrateurService {
 
         }
         return administrateur;
-
-
     }
+
+    public Administrateur findAdministrateurByLogin(String login) throws Exception {
+        Optional<Administrateur> optionalAdministrateur=this.administrateurRepository.findByLogin(login);
+        Administrateur administrateur= new Administrateur();
+        if (optionalAdministrateur.isPresent()) {
+            administrateur= optionalAdministrateur.get();
+        }else {
+            throw new Exception("login introuvable");
+
+        }
+        return administrateur;
+    }
+
     public Administrateur saveAdmin(Administrateur admin){
        return this.administrateurRepository.save(admin);
     }

@@ -33,7 +33,12 @@ public class AdministreurController {
     public ResponseEntity<Administrateur> getAdminById(@PathVariable("id") Long id) throws Exception {
        Administrateur administrateur= administrateurService.findAdministrateurById(id);
        return new ResponseEntity<>(administrateur, HttpStatus.OK);
+    }
 
+    @GetMapping("/findbylogin/{login}")
+    public ResponseEntity<Administrateur> getAdminById(@PathVariable("login") String login) throws Exception {
+        Administrateur administrateur= administrateurService.findAdministrateurByLogin(login);
+        return new ResponseEntity<>(administrateur, HttpStatus.OK);
     }
 
     @PutMapping("/update")

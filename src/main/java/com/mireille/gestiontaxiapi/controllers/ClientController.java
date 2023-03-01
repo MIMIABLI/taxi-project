@@ -40,7 +40,7 @@ import java.util.List;
 
         @GetMapping("/findByLogin/{login}")
         public ResponseEntity<Client> getClientById(@PathVariable("login") String login) throws Exception {
-            Client client= clientService.findClientByLogin(login);
+            Client client = clientService.findClientByLogin(login);
             return new ResponseEntity<>(client, HttpStatus.OK);
         }
 

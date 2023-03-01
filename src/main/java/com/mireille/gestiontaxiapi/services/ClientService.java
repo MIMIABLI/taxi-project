@@ -30,7 +30,7 @@ public class ClientService {
     }
 
     public Client findClientByLogin(String clientLogin) throws Exception{
-        Optional<Client> optionalClient = this.clientRepository.findClientByLogin(clientLogin);
+        Optional<Client> optionalClient = this.clientRepository.findByLogin(clientLogin);
         Client client = new Client();
 
         if (optionalClient.isPresent()) {
