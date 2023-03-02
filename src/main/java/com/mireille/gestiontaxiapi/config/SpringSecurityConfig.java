@@ -1,3 +1,4 @@
+/*
 package com.mireille.gestiontaxiapi.config;
 
 import lombok.RequiredArgsConstructor;
@@ -22,3 +23,4 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .formLogin();
     }
 }
+*/

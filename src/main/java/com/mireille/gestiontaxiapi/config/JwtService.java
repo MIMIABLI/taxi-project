@@ -18,7 +18,7 @@ import java.util.function.Function;
 public class JwtService {
 
     private static String SECRET_KEY = "25442A472D4B6150645367566B58703273357638792F423F4528482B4D625165";
-    private Date expritationDate = new Date(System.currentTimeMillis() * 1000 * 60 * 24);
+    private Date expritationDate = new Date(System.currentTimeMillis() + 1000 * 60 * 24);
 
     public String extractUserName(String token) {
         return extractClaim(token, Claims::getSubject);

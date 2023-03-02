@@ -1,7 +1,10 @@
 package com.mireille.gestiontaxiapi.models;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,6 +14,9 @@ import java.util.Collection;
 import java.util.List;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "T_ADMIN")
 public class Administrateur implements UserDetails {
@@ -19,6 +25,10 @@ public class Administrateur implements UserDetails {
     private Long id;
     @Column(name = "login")
     private  String login;
+    @Column(name = "nom")
+    private String nom;
+    @Column(name = "prenom")
+    private String prenom;
     @Column(name = "password")
     private  String password;
     @Column(name = "email")
@@ -27,18 +37,6 @@ public class Administrateur implements UserDetails {
     @Column(name = "role")
     private Role role;
 
-
-    public Administrateur(Long id, String login, String password, String email) {
-        this.id = id;
-        this.login = login;
-        this.password = password;
-        this.email = email;
-
-    }
-
-    public Administrateur() {
-        setRoleAdmin();
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

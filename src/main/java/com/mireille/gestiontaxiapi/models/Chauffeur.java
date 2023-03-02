@@ -2,6 +2,7 @@ package com.mireille.gestiontaxiapi.models;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,6 +14,9 @@ import java.util.Collection;
 import java.util.List;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "T_CHAUFFEUR")
 public class Chauffeur implements UserDetails {
@@ -50,9 +54,8 @@ public class Chauffeur implements UserDetails {
     @Column(name = "role")
     private Role role;
 
-    public Chauffeur() {
-        setChauffeurRole();
-    }
+    @Enumerated(EnumType.ORDINAL)
+    private UserType userType;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -93,5 +96,12 @@ public class Chauffeur implements UserDetails {
         return this.role = Role.USER;
     }
 
+    private UserType setChauffeurUserType() {
+        return this.userType = UserType.CLIENT;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
 
 }

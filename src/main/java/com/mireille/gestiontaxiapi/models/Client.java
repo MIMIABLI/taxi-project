@@ -1,6 +1,7 @@
 package com.mireille.gestiontaxiapi.models;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
@@ -13,6 +14,9 @@ import java.util.Collection;
 import java.util.List;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "T_CLIENT",
        uniqueConstraints = @UniqueConstraint(columnNames = "login"))
@@ -49,9 +53,8 @@ public class Client implements UserDetails {
     @Column(name = "role")
     private Role role;
 
-    public Client() {
-        setClientRole();
-    }
+    @Enumerated(EnumType.ORDINAL)
+    private UserType userType;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -89,6 +92,19 @@ public class Client implements UserDetails {
     }
 
     private Role setClientRole(){
+
         return this.role = Role.USER;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    private UserType setClientUserType() {
+        return this.userType = UserType.CLIENT;
+    }
+
+    public UserType getUserType() {
+        return userType;
     }
 }
