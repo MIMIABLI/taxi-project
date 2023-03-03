@@ -27,6 +27,10 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 
+    @PostMapping("/expiredtoken")
+    public ResponseEntity<String> stringResponseEntity (@RequestBody AuthenticationRequest request) {
+        return ResponseEntity.ok("Tout est ok");
+    }
 
 
 }

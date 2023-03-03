@@ -1,7 +1,7 @@
 package com.mireille.gestiontaxiapi.models;
 
 import lombok.Data;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Date;
 @Data
 @Entity

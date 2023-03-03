@@ -8,7 +8,6 @@ import com.mireille.gestiontaxiapi.repositories.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +18,7 @@ public class AuthenticationService {
     private final ClientRepository clientRepository;
     private final ChauffeurRepository chauffeurRepository;
     private final AdministrateurRepository administrateurRepository;
+    private final TokenRepository tokenRepository;
 
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
@@ -48,33 +48,34 @@ public class AuthenticationService {
             System.out.println("user Type non renseigné !");
         }
 
+        tokenRepository.save(UserToken.builder().token(jwtToken).build());
+
         return AuthencationResponse.builder()
                 .token(jwtToken)
                 .build();
     }
 
     public AuthencationResponse authenticate(AuthenticationRequest request) {
+
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
+                        request.getLogin(),
                         request.getPassword()
                 )
         );
 
-        UserDetails user;
-
-        /*if(clientRepository.findByLogin(request.getLogin()).isPresent()) {
-            user = clientRepository.findByLogin(request.getLogin()).get();
-            jwtToken = jwtService.generateToken(user);
+        if(clientRepository.findByLogin(request.getLogin()).isPresent()) {
+          var userVar = clientRepository.findByLogin(request.getLogin()).orElseThrow();
+            jwtToken = jwtService.generateToken(userVar);
 
         } else if (chauffeurRepository.findByLogin(request.getLogin()).isPresent()) {
-            user = chauffeurRepository.findByLogin(request.getLogin()).get();
-            jwtToken = jwtService.generateToken(user);
+            var userVar = chauffeurRepository.findByLogin(request.getLogin()).orElseThrow();
+            jwtToken = jwtService.generateToken(userVar);
 
         } else if (administrateurRepository.findByLogin(request.getLogin()).isPresent()) {
-            user = administrateurRepository.findByLogin(request.getLogin()).get();
-            jwtToken = jwtService.generateToken(user);
-        }*/
+            var userVar = administrateurRepository.findByLogin(request.getLogin()).orElseThrow();
+            jwtToken = jwtService.generateToken(userVar);
+        }
 
         return AuthencationResponse.builder()
                 .token(jwtToken)

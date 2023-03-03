@@ -4,7 +4,6 @@ import com.mireille.gestiontaxiapi.models.Client;
 import com.mireille.gestiontaxiapi.repositories.ClientRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

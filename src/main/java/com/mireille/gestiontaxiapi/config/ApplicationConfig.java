@@ -10,7 +10,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -28,11 +27,11 @@ public class ApplicationConfig {
     public UserDetailsService userDetailsService() {
         return username -> {
             if(clientRepository.findByLogin(username).isPresent()) {
-          return clientRepository.findByLogin(username).get();
+          return clientRepository.findByLogin(username).orElseThrow();
         } else if (chauffeurRepository.findByLogin(username).isPresent()) {
-            return chauffeurRepository.findByLogin(username).get();
+            return chauffeurRepository.findByLogin(username).orElseThrow();
         } else if (administrateurRepository.findByLogin(username).isPresent()) {
-             return administrateurRepository.findByLogin(username).get();
+             return administrateurRepository.findByLogin(username).orElseThrow();
             } else {
                 throw  new UsernameNotFoundException(username + " not found.");
             }

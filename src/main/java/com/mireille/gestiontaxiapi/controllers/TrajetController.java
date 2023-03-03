@@ -1,7 +1,6 @@
 package com.mireille.gestiontaxiapi.controllers;
 
 
-import com.mireille.gestiontaxiapi.models.Client;
 import com.mireille.gestiontaxiapi.models.Trajet;
 import com.mireille.gestiontaxiapi.services.TrajetService;
 import org.springframework.http.HttpStatus;
