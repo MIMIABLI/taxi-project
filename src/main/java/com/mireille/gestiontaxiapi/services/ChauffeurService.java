@@ -53,6 +53,16 @@ public class ChauffeurService {
         return chauffeursList;
 
     }
+
+    public List<Chauffeur> findAllBySecteur(String secteur){
+        List<Chauffeur> chauffeursListBySecteur = new ArrayList<>();
+        chauffeursListBySecteur = this.chauffeurRepository.findAllBySecteur(secteur);
+        return chauffeursListBySecteur;
+
+    }
+
+
+
     public Chauffeur update(Chauffeur user ){
         return this.saveChauffeur(user);
 

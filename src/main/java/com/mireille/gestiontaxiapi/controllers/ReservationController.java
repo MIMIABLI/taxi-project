@@ -30,6 +30,12 @@ import java.util.List;
             return new ResponseEntity<>(reservationList, HttpStatus.OK);
         }
 
+        @GetMapping("/allacceptee/{id}")
+        public ResponseEntity<List<Reservation>> getAllReservationAcceptee(@PathVariable("id") Long id){
+            List<Reservation> reservationAccepteeList = reservationService.findAllAccepteeByChauffeur(id);
+            return new ResponseEntity<>(reservationAccepteeList, HttpStatus.OK);
+        }
+
         @GetMapping("/find/{id}")
         public ResponseEntity<Reservation> getReservationById(@PathVariable("id") Long id) throws Exception {
             Reservation reservation=reservationService.findReservationById(id);

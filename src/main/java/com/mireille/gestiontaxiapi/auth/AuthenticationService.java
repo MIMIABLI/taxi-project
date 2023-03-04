@@ -25,11 +25,13 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     private String jwtToken;
+    private AuthencationResponse authencationResponse = new AuthencationResponse();
 
     public AuthencationResponse register(RegisterRequest request) {
 
         var user = RegisterRequest.builder()
                 .nom(request.getNom())
+                .login(request.getLogin())
                 .prenom(request.getPrenom())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .userType(request.getUserType())
@@ -37,22 +39,24 @@ public class AuthenticationService {
 
         if (user.getUserType() == UserType.CLIENT) {
             Client client = saveClient(request, user);
-            jwtToken = jwtService.generateToken(client);
+            jwtToken = jwtService.generateToken(client, UserType.CLIENT.getUserTypeInt());
+            authencationResponse.setUserType(UserType.CLIENT);
         } else if (user.getUserType() == UserType.CHAUFFEUR) {
             Chauffeur chauffeur = saveChauffeur(request, user);
-            jwtToken = jwtService.generateToken(chauffeur);
+            jwtToken = jwtService.generateToken(chauffeur, UserType.CHAUFFEUR.getUserTypeInt());
+            authencationResponse.setUserType(UserType.CHAUFFEUR);
         } else if (user.getUserType() == UserType.ADMIN) {
             Administrateur administrateur = saveAdmin(request, user);
             jwtToken = jwtService.generateToken(administrateur);
+            authencationResponse.setUserType(UserType.ADMIN);
         } else {
             System.out.println("user Type non renseigné !");
         }
 
         tokenRepository.save(UserToken.builder().token(jwtToken).build());
 
-        return AuthencationResponse.builder()
-                .token(jwtToken)
-                .build();
+        authencationResponse.setToken(jwtToken);
+        return authencationResponse;
     }
 
     public AuthencationResponse authenticate(AuthenticationRequest request) {
@@ -66,32 +70,35 @@ public class AuthenticationService {
 
         if(clientRepository.findByLogin(request.getLogin()).isPresent()) {
           var userVar = clientRepository.findByLogin(request.getLogin()).orElseThrow();
-            jwtToken = jwtService.generateToken(userVar);
+          authencationResponse.setUserType(UserType.CLIENT);
+          jwtToken = jwtService.generateToken(userVar);
 
         } else if (chauffeurRepository.findByLogin(request.getLogin()).isPresent()) {
             var userVar = chauffeurRepository.findByLogin(request.getLogin()).orElseThrow();
+            authencationResponse.setUserType(UserType.CHAUFFEUR);
             jwtToken = jwtService.generateToken(userVar);
 
         } else if (administrateurRepository.findByLogin(request.getLogin()).isPresent()) {
             var userVar = administrateurRepository.findByLogin(request.getLogin()).orElseThrow();
+            authencationResponse.setUserType(UserType.ADMIN);
             jwtToken = jwtService.generateToken(userVar);
         }
 
-        return AuthencationResponse.builder()
-                .token(jwtToken)
-                .build();
+        authencationResponse.setToken(jwtToken);
+        return authencationResponse;
     }
 
     private Client saveClient(RegisterRequest request, RegisterRequest user) {
-        Client client = Client.builder()
-                .nom(user.getNom())
-                .prenom(user.getPrenom())
-                .login(request.getLogin())
-                .password(user.getPassword())
-                .email(request.getEmail())
-                .telephone(request.getTelephone())
-                .role(Role.USER)
-                .build();
+
+        Client client = new Client();
+        client.setLogin(user.getLogin());
+        client.setClientUserType(UserType.CLIENT);
+        client.setPassword(user.getPassword());
+        client.setRole(Role.USER);
+        client.setEmail(user.getEmail());
+        client.setTelephone(user.getTelephone());
+        client.setNom(user.getNom());
+        client.setPrenom(user.getPrenom());
 
         clientRepository.save(client);
         return client;

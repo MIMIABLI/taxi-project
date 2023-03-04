@@ -1,11 +1,10 @@
 package com.mireille.gestiontaxiapi.auth;
 
+import com.mireille.gestiontaxiapi.config.JwtService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -13,24 +12,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
+    private final JwtService jwtService;
 
     @PostMapping("/register")
     public ResponseEntity<AuthencationResponse> register(
             @RequestBody RegisterRequest request) {
-
-        return ResponseEntity.ok(authenticationService.register(request));
+        return new ResponseEntity<>(authenticationService.register(request), HttpStatus.CREATED);
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthencationResponse> authenticate(
-            @RequestBody AuthenticationRequest request) {
-        return ResponseEntity.ok(authenticationService.authenticate(request));
+    public ResponseEntity<AuthencationResponse> authenticate(@RequestBody AuthenticationRequest request) {
+        System.out.println(request.getLogin() + " est authentifié !");
+        return new ResponseEntity<>(authenticationService.authenticate(request), HttpStatus.OK);
     }
-
-    @PostMapping("/expiredtoken")
-    public ResponseEntity<String> stringResponseEntity (@RequestBody AuthenticationRequest request) {
-        return ResponseEntity.ok("Tout est ok");
-    }
-
 
 }

@@ -2,6 +2,7 @@ package com.mireille.gestiontaxiapi.models;
 
 import lombok.Data;
 import jakarta.persistence.*;
+import lombok.NonNull;
 
 @Data
 @Entity
@@ -10,8 +11,10 @@ public class Trajet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NonNull
     @Column(name = "lieuDeDepart")
     private String lieuDeDepart;
+    @NonNull
     @Column(name = "lieuDarrive")
     private String lieuDArrive;
     @Column(name = "dureeTrajet")
@@ -20,9 +23,15 @@ public class Trajet {
     private Double prix;
     @Column(name = "statut")
     private Enum statut;
+    @NonNull
+    @Column(name = "secteur")
+    private String secteur;
     @OneToOne
     @JoinColumn(name = "id_Reservation")
     private Reservation reservation;
 
 
+    public Trajet() {
+
+    }
 }

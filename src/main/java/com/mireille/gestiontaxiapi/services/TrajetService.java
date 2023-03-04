@@ -18,7 +18,6 @@ public class TrajetService {
     public Trajet findTrajetById (Long Id) throws Exception {
         Optional<Trajet> optionalTrajet = this.trajetRepository.findById(Id);
         Trajet trajet = new Trajet();
-
         if(optionalTrajet.isPresent()) {
             trajet = optionalTrajet.get();
 
@@ -39,8 +38,14 @@ public class TrajetService {
     public List<Trajet> findAll(){
         List<Trajet> trajetList=new ArrayList<>();
         trajetList=this.trajetRepository.findAll();
+        return trajetList;
+    }
 
-        return trajetList;}
+   /* public List<Trajet> findAllByStatut(String statut){
+        List<Trajet> trajetListByStatut = new ArrayList<>();
+        trajetListByStatut = this.trajetRepository.findAll(statut);
+        return trajetListByStatut;
+    }*/
 
     public Trajet update(Trajet trajet) {
         return this.saveTrajet(trajet);

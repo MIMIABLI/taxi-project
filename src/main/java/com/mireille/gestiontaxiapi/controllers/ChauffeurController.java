@@ -2,6 +2,8 @@ package com.mireille.gestiontaxiapi.controllers;
 
 
 import com.mireille.gestiontaxiapi.models.Chauffeur;
+import com.mireille.gestiontaxiapi.models.Role;
+import com.mireille.gestiontaxiapi.models.UserType;
 import com.mireille.gestiontaxiapi.services.ChauffeurService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,14 +20,22 @@ public class ChauffeurController {
         }
         @PostMapping("/add")
         public ResponseEntity<Chauffeur> addChauffeur(@RequestBody Chauffeur chauffeur ){
-            Chauffeur chauffeur1 = chauffeurService.saveChauffeur(chauffeur);
-            return new ResponseEntity<>(chauffeur1, HttpStatus.CREATED);
+            chauffeur.setUserType(UserType.CHAUFFEUR);
+            chauffeur.setRole(Role.USER);
+            Chauffeur newChauffeur = chauffeurService.saveChauffeur(chauffeur);
+            return new ResponseEntity<>(newChauffeur, HttpStatus.CREATED);
         }
 
         @GetMapping("/all")
         public ResponseEntity<List<Chauffeur>> getAllChauffeur(){
             List<Chauffeur> chauffeurList=chauffeurService.findAll();
             return new ResponseEntity<>(chauffeurList, HttpStatus.OK);
+        }
+
+        @GetMapping("/allbysecteur/{secteur}")
+        public ResponseEntity<List<Chauffeur>> getAllChauffeurBySecteur(@PathVariable("secteur") String secteur){
+            List<Chauffeur> chauffeurListBySecteur = chauffeurService.findAllBySecteur(secteur);
+            return new ResponseEntity<>(chauffeurListBySecteur, HttpStatus.OK);
         }
 
         @GetMapping("/find/{id}")

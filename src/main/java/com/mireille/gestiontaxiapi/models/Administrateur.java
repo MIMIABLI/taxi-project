@@ -37,6 +37,9 @@ public class Administrateur implements UserDetails {
     @Column(name = "role")
     private Role role;
 
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -76,4 +79,5 @@ public class Administrateur implements UserDetails {
     private Role setRoleAdmin() {
         return Role.ADMIN;
     }
+
 }

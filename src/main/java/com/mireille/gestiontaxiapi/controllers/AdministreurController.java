@@ -1,6 +1,9 @@
 package com.mireille.gestiontaxiapi.controllers;
 
 import com.mireille.gestiontaxiapi.models.Administrateur;
+import com.mireille.gestiontaxiapi.models.Chauffeur;
+import com.mireille.gestiontaxiapi.models.Role;
+import com.mireille.gestiontaxiapi.models.UserType;
 import com.mireille.gestiontaxiapi.services.AdministrateurService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +21,7 @@ public class AdministreurController {
     }
     @PostMapping("/add")
     public ResponseEntity<Administrateur> addAdmin(@RequestBody Administrateur administrateur ){
+        administrateur.setRole(Role.ADMIN);
         Administrateur administrateur1 = administrateurService.saveAdmin(administrateur);
         return new ResponseEntity<>(administrateur1, HttpStatus.CREATED);
     }

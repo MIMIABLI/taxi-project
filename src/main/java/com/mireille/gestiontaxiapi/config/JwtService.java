@@ -33,8 +33,14 @@ public class JwtService {
         return generateToken(new HashMap<>(), userDetails);
     }
 
+    public String generateToken(UserDetails userDetails, Integer integer) {
+        HashMap<String, Integer> stringHashMap = new HashMap<String, Integer>();
+        stringHashMap.put("ust", integer);
+        return generateToken(stringHashMap, userDetails);
+    }
+
     public String generateToken(
-            Map<String, Object> extraClaims,
+            Map<String, Integer> extraClaims,
             UserDetails userDetails) {
         return Jwts.builder()
                 .setClaims(extraClaims)

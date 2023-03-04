@@ -2,6 +2,8 @@ package com.mireille.gestiontaxiapi.models;
 
 import lombok.Data;
 import jakarta.persistence.*;
+import lombok.NonNull;
+
 import java.util.Date;
 @Data
 @Entity
@@ -22,8 +24,9 @@ public class Reservation {
     private Date heureDepart;
     @Column(name = "heureDeArrive")
     private Date heureArrive;
+    @Enumerated(EnumType.STRING)
     @Column(name = "statut")
-    private String statut;
+    private StatutResa statutResa;
     @OneToOne
     @JoinColumn(name = "id_Trajet")
     private Trajet trajet;

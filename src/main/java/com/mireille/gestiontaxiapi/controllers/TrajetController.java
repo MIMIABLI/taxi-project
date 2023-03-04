@@ -27,6 +27,7 @@ import java.util.List;
             List<Trajet> trajetList=trajetService.findAll();
             return new ResponseEntity<>(trajetList, HttpStatus.OK);
         }
+
         @GetMapping("/find/{id}")
         public ResponseEntity<Trajet> getTrajetById(@PathVariable("id") Long id) throws Exception {
             Trajet trajet=trajetService.findTrajetById(id);

@@ -1,10 +1,7 @@
 package com.mireille.gestiontaxiapi.models;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,14 +20,19 @@ public class Chauffeur implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NonNull
     @Column(name = "nom")
     private String nom;
-    @Column(name = "prenom")
-    private String prenom;
+    @NonNull
     @Column(name = "login")
     private String login;
+    @NonNull
+    @Column(name = "prenom")
+    private String prenom;
+    @NonNull
     @Column(name = "password")
     private String password;
+    @NonNull
     @Column(name = "email")
     private String email;
     @Column(name = "telephone")
@@ -45,8 +47,9 @@ public class Chauffeur implements UserDetails {
     private String immatriculationDuVehicule;
     @Column(name = "note")
     private Double note;
-    @Column(name = "positionGPS")
-    private String positionGPS;
+    @NonNull
+    @Column(name = "secteur")
+    private String secteur;
     @OneToMany(mappedBy = "chauffeur")
     private List<Reservation> listReservation;
 
@@ -54,8 +57,13 @@ public class Chauffeur implements UserDetails {
     @Column(name = "role")
     private Role role;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private UserType userType;
+
+    public Chauffeur(Role role, UserType userType) {
+        this.role = role;
+        this.userType = userType;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

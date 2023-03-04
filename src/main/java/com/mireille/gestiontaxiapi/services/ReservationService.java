@@ -45,6 +45,12 @@ public class ReservationService {
         return reservationList;
     }
 
+    public List<Reservation> findAllAccepteeByChauffeur(Long idChauffeur) {
+        List<Reservation> reservationAccepteeList = new ArrayList<>();
+        reservationAccepteeList = this.reservationRepository.findAllByStatutAccepteeByChauffeur(idChauffeur);
+        return reservationAccepteeList;
+    }
+
     public Reservation update(Reservation reservation) {
         return this.saveReservation(reservation);
 

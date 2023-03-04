@@ -27,9 +27,11 @@ public class Client implements UserDetails {
     @Column(name = "idClient")
     private Long id;
 
+    @NonNull
     @Column(name = "nom")
     private String nom;
 
+    @NonNull
     @Column(name = "prenom")
     private String prenom;
 
@@ -37,12 +39,15 @@ public class Client implements UserDetails {
     @Column(name = "login")
     private String login;
 
+    @NonNull
     @Column(name = "password")
     private String password;
 
+    @NonNull
     @Column(name = "email")
     private String email;
 
+    @NonNull
     @Column(name = "telephone")
     private String telephone;
 
@@ -53,8 +58,9 @@ public class Client implements UserDetails {
     @Column(name = "role")
     private Role role;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private UserType userType;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -100,11 +106,12 @@ public class Client implements UserDetails {
         return role;
     }
 
-    private UserType setClientUserType() {
+    public UserType setClientUserType(UserType client) {
         return this.userType = UserType.CLIENT;
     }
 
     public UserType getUserType() {
         return userType;
     }
+
 }

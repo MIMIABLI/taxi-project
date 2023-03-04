@@ -1,7 +1,10 @@
 package com.mireille.gestiontaxiapi.controllers;
 
 
+import com.mireille.gestiontaxiapi.models.Chauffeur;
 import com.mireille.gestiontaxiapi.models.Client;
+import com.mireille.gestiontaxiapi.models.Role;
+import com.mireille.gestiontaxiapi.models.UserType;
 import com.mireille.gestiontaxiapi.services.ClientService;
 import com.mireille.gestiontaxiapi.services.TrajetService;
 import org.springframework.http.HttpStatus;
@@ -22,6 +25,8 @@ import java.util.List;
 
         @PostMapping("/add")
         public ResponseEntity<Client> addClient(@RequestBody Client client ){
+            client.setUserType(UserType.CLIENT);
+            client.setRole(Role.USER);
             Client newClient = clientService.saveClient(client);
             return new ResponseEntity<>(newClient, HttpStatus.CREATED);
         }
