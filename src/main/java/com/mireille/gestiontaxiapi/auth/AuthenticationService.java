@@ -39,11 +39,11 @@ public class AuthenticationService {
 
         if (user.getUserType() == UserType.CLIENT) {
             Client client = saveClient(request, user);
-            jwtToken = jwtService.generateToken(client, UserType.CLIENT.getUserTypeInt());
+            jwtToken = jwtService.generateToken(client);
             authencationResponse.setUserType(UserType.CLIENT);
         } else if (user.getUserType() == UserType.CHAUFFEUR) {
             Chauffeur chauffeur = saveChauffeur(request, user);
-            jwtToken = jwtService.generateToken(chauffeur, UserType.CHAUFFEUR.getUserTypeInt());
+            jwtToken = jwtService.generateToken(chauffeur);
             authencationResponse.setUserType(UserType.CHAUFFEUR);
         } else if (user.getUserType() == UserType.ADMIN) {
             Administrateur administrateur = saveAdmin(request, user);
@@ -84,6 +84,8 @@ public class AuthenticationService {
             jwtToken = jwtService.generateToken(userVar);
         }
 
+
+        tokenRepository.save(UserToken.builder().token(jwtToken).build());
         authencationResponse.setToken(jwtToken);
         return authencationResponse;
     }

@@ -18,6 +18,7 @@ import java.util.function.Function;
 public class JwtService {
 
     private static String SECRET_KEY = "25442A472D4B6150645367566B58703273357638792F423F4528482B4D625165";
+    private Date creationDate = new Date(System.currentTimeMillis());
     private Date expritationDate = new Date(System.currentTimeMillis() + 1000 * 60 * 24);
 
     public String extractUserName(String token) {
@@ -33,19 +34,17 @@ public class JwtService {
         return generateToken(new HashMap<>(), userDetails);
     }
 
-    public String generateToken(UserDetails userDetails, Integer integer) {
+  /*  public String generateToken(UserDetails userDetails, Integer integer) {
         HashMap<String, Integer> stringHashMap = new HashMap<String, Integer>();
         stringHashMap.put("ust", integer);
         return generateToken(stringHashMap, userDetails);
-    }
+    }*/
 
-    public String generateToken(
-            Map<String, Integer> extraClaims,
-            UserDetails userDetails) {
+    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
         return Jwts.builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
-                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setIssuedAt(creationDate)
                 .setExpiration(expritationDate)
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
