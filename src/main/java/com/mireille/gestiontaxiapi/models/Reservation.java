@@ -28,7 +28,7 @@ public class Reservation {
     @Column(name = "statut")
     private StatutResa statutResa;
     @OneToOne
-    @JoinColumn(name = "id_Trajet")
+    @JoinColumn(name = "id")
     private Trajet trajet;
 
 

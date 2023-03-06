@@ -21,13 +21,14 @@ public class Trajet {
     private String dureeTrajet;
     @Column(name = "prix")
     private Double prix;
+    @Enumerated(EnumType.STRING)
     @Column(name = "statut")
-    private Enum statut;
+    private StatutTrajet statut;
     @NonNull
     @Column(name = "secteur")
     private String secteur;
-    @OneToOne
-    @JoinColumn(name = "id_Reservation")
+    @OneToOne(mappedBy = "")
+    @JoinColumn(name = "id")
     private Reservation reservation;
 
 

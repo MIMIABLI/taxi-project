@@ -17,6 +17,7 @@ import java.util.List;
         public TrajetController(TrajetService trajetService){
             this.trajetService = trajetService;
         }
+
         @PostMapping("/add")
         public ResponseEntity<Trajet> addTrajet(@RequestBody Trajet trajet) {
             Trajet newTrajet = trajetService.saveTrajet(trajet);

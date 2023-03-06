@@ -72,7 +72,6 @@ public class AuthenticationService {
           var userVar = clientRepository.findByLogin(request.getLogin()).orElseThrow();
           authencationResponse.setUserType(UserType.CLIENT);
           jwtToken = jwtService.generateToken(userVar);
-          System.out.println(jwtToken);
 
         } else if (chauffeurRepository.findByLogin(request.getLogin()).isPresent()) {
             var userVar = chauffeurRepository.findByLogin(request.getLogin()).orElseThrow();
