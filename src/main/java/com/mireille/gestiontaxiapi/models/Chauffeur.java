@@ -20,36 +20,43 @@ public class Chauffeur implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NonNull
+
     @Column(name = "nom")
     private String nom;
-    @NonNull
+
     @Column(name = "login")
     private String login;
-    @NonNull
+
     @Column(name = "prenom")
     private String prenom;
-    @NonNull
+
     @Column(name = "password")
     private String password;
-    @NonNull
+
     @Column(name = "email")
     private String email;
+
     @Column(name = "telephone")
     private String telephone;
+
     @Column(name = "photos")
     private String photos;
+
     @Column(name = "typeDeVehicules")
     private String typeDeVehicules;
+
     @Column(name = "couleurDuVehicule")
     private String couleurDuVehicule;
+
     @Column(name = "immatriculationDuVehicule")
     private String immatriculationDuVehicule;
+
     @Column(name = "note")
     private Double note;
-    @NonNull
+
     @Column(name = "secteur")
     private String secteur;
+
     @OneToMany(mappedBy = "chauffeur")
     private List<Reservation> listReservation;
 

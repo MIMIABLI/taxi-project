@@ -37,9 +37,9 @@ public class ChauffeurService {
         return chauffeur;
     }
 
-    public Chauffeur saveChauffeur(Chauffeur user){
-        this.chauffeurRepository.save(user);
-        return user;
+    public Chauffeur saveChauffeur(Chauffeur chauffeur){
+        this.chauffeurRepository.save(chauffeur);
+        return chauffeur;
     }
 
     public void delete(Long Id){

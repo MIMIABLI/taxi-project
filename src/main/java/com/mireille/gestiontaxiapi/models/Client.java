@@ -43,11 +43,9 @@ public class Client implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @NonNull
     @Column(name = "email")
     private String email;
 
-    @NonNull
     @Column(name = "telephone")
     private String telephone;
 

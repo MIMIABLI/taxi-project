@@ -7,6 +7,7 @@ import com.mireille.gestiontaxiapi.models.UserType;
 import com.mireille.gestiontaxiapi.services.AdministrateurService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class AdministreurController {
     @PostMapping("/add")
     public ResponseEntity<Administrateur> addAdmin(@RequestBody Administrateur administrateur ){
         administrateur.setRole(Role.ADMIN);
+        administrateur.setUserType(UserType.ADMIN);
         Administrateur administrateur1 = administrateurService.saveAdmin(administrateur);
         return new ResponseEntity<>(administrateur1, HttpStatus.CREATED);
     }

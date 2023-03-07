@@ -41,14 +41,6 @@ public class AuthenticationService {
             Client client = saveClient(request, user);
             jwtToken = jwtService.generateToken(client);
             authencationResponse.setUserType(UserType.CLIENT);
-        } else if (user.getUserType() == UserType.CHAUFFEUR) {
-            Chauffeur chauffeur = saveChauffeur(request, user);
-            jwtToken = jwtService.generateToken(chauffeur);
-            authencationResponse.setUserType(UserType.CHAUFFEUR);
-        } else if (user.getUserType() == UserType.ADMIN) {
-            Administrateur administrateur = saveAdmin(request, user);
-            jwtToken = jwtService.generateToken(administrateur);
-            authencationResponse.setUserType(UserType.ADMIN);
         } else {
             System.out.println("user Type non renseigné !");
         }
@@ -106,15 +98,21 @@ public class AuthenticationService {
         return client;
     }
 
-    private Chauffeur saveChauffeur(RegisterRequest request, RegisterRequest user) {
+    private Chauffeur saveChauffeur(Chauffeur chauffeurRequest) {
+        String mdpParDefaut = chauffeurRequest.getNom().toUpperCase() + (chauffeurRequest.getPrenom().toLowerCase().charAt(0));
         Chauffeur chauffeur = Chauffeur.builder()
-                .nom(user.getNom())
-                .prenom(user.getPrenom())
-                .login(request.getLogin())
-                .password(user.getPassword())
-                .email(request.getEmail())
-                .telephone(request.getTelephone())
+                .nom(chauffeurRequest.getNom())
+                .login(chauffeurRequest.getLogin())
+                .prenom(chauffeurRequest.getPrenom())
+                .password(passwordEncoder.encode(mdpParDefaut))
+                .email(chauffeurRequest.getEmail())
+                .telephone(chauffeurRequest.getTelephone())
+                .userType(UserType.CHAUFFEUR)
                 .role(Role.USER)
+                .couleurDuVehicule(chauffeurRequest.getCouleurDuVehicule())
+                .secteur(chauffeurRequest.getSecteur())
+                .immatriculationDuVehicule(chauffeurRequest.getImmatriculationDuVehicule())
+                .typeDeVehicules(chauffeurRequest.getTypeDeVehicules())
                 .build();
 
         chauffeurRepository.save(chauffeur);
@@ -133,5 +131,46 @@ public class AuthenticationService {
 
         administrateurRepository.save(administrateur);
         return administrateur;
+    }
+
+    public AuthencationResponse registerAdmin(RegisterRequest request) {
+
+        var user = RegisterRequest.builder()
+                .nom(request.getNom())
+                .login(request.getLogin())
+                .prenom(request.getPrenom())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .userType(UserType.ADMIN)
+                .build();
+
+        Administrateur administrateur = saveAdmin(request, user);
+        jwtToken = jwtService.generateToken(administrateur);
+        authencationResponse.setUserType(UserType.ADMIN);
+
+        tokenRepository.save(UserToken.builder().token(jwtToken).build());
+
+        authencationResponse.setToken(jwtToken);
+        return authencationResponse;
+    }
+
+    public AuthencationResponse registerChauffeur(Chauffeur chauffeurRequest) {
+        /*var user = Chauffeur.builder()
+                .nom(chauffeurRequest.getNom())
+                .login(chauffeurRequest.getLogin())
+                .prenom(chauffeurRequest.getPrenom())
+                .couleurDuVehicule(chauffeurRequest.getCouleurDuVehicule())
+                .secteur(chauffeurRequest.getSecteur())
+                .immatriculationDuVehicule(chauffeurRequest.getImmatriculationDuVehicule())
+                .typeDeVehicules(chauffeurRequest.getTypeDeVehicules())
+                .build();*/
+
+        Chauffeur chauffeur = saveChauffeur(chauffeurRequest);
+        jwtToken = jwtService.generateToken(chauffeur);
+        authencationResponse.setUserType(UserType.CHAUFFEUR);
+
+        tokenRepository.save(UserToken.builder().token(jwtToken).build());
+
+        authencationResponse.setToken(jwtToken);
+        return authencationResponse;
     }
 }

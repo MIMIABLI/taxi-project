@@ -7,6 +7,7 @@ import com.mireille.gestiontaxiapi.models.UserType;
 import com.mireille.gestiontaxiapi.services.ChauffeurService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,13 +16,20 @@ import java.util.List;
 @RequestMapping("/chauffeur")
 public class ChauffeurController {
         private ChauffeurService chauffeurService;
+        private PasswordEncoder passwordEncoder;
+        private String mdpChauffeurParDefaut;
+
         public ChauffeurController(ChauffeurService chauffeurService){
             this.chauffeurService = chauffeurService;
         }
+
         @PostMapping("/add")
         public ResponseEntity<Chauffeur> addChauffeur(@RequestBody Chauffeur chauffeur ){
             chauffeur.setUserType(UserType.CHAUFFEUR);
             chauffeur.setRole(Role.USER);
+            mdpChauffeurParDefaut = chauffeur.getNom().toUpperCase() + chauffeur.getPrenom().charAt(0);
+            System.out.println("mdp par défaut: " + mdpChauffeurParDefaut);
+            chauffeur.setPassword(passwordEncoder.encode(mdpChauffeurParDefaut));
             Chauffeur newChauffeur = chauffeurService.saveChauffeur(chauffeur);
             return new ResponseEntity<>(newChauffeur, HttpStatus.CREATED);
         }

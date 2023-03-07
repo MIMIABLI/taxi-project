@@ -10,7 +10,8 @@ import java.util.Date;
 @Table(name = "T_RESERVATION")
 public class Reservation {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "reservation_id")
     private Long id;
     @ManyToOne()
     @JoinColumn(name = "Client_Id")
@@ -27,8 +28,9 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     @Column(name = "statut")
     private StatutResa statutResa;
+
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "trajet_id", referencedColumnName = "trajet_id")
     private Trajet trajet;
 
 
