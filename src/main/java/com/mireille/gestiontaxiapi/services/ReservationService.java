@@ -45,9 +45,23 @@ public class ReservationService {
         return reservationList;
     }
 
-    public List<Reservation> findAllAccepteeByChauffeur(Long idChauffeur) {
+    public List<Reservation> findAllByChauffeur(String login) {
+        List<Reservation> reservationList = new ArrayList<>();
+        reservationList = this.reservationRepository.findAllByChauffeur(login);
+
+        return reservationList;
+    }
+
+    public List<Reservation> findAllByClientLogin(String login) {
+        List<Reservation> reservationList = new ArrayList<>();
+        reservationList = this.reservationRepository.findAllByClientLogin(login);
+
+        return reservationList;
+    }
+
+    public List<Reservation> findAllAccepteeByChauffeur(String loginChauffeur) {
         List<Reservation> reservationAccepteeList = new ArrayList<>();
-        reservationAccepteeList = this.reservationRepository.findAllByStatutAccepteeByChauffeur(idChauffeur);
+        reservationAccepteeList = this.reservationRepository.findAllByStatutAccepteeByChauffeur(loginChauffeur);
         return reservationAccepteeList;
     }
 

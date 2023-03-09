@@ -24,7 +24,7 @@ public class Chauffeur implements UserDetails {
     @Column(name = "nom")
     private String nom;
 
-    @Column(name = "login")
+    @Column(name = "login", unique = true)
     private String login;
 
     @Column(name = "prenom")
@@ -57,7 +57,9 @@ public class Chauffeur implements UserDetails {
     @Column(name = "secteur")
     private String secteur;
 
-    @OneToMany(mappedBy = "chauffeur")
+    @OneToMany(mappedBy = "chauffeur",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private List<Reservation> listReservation;
 
     @Enumerated(EnumType.STRING)

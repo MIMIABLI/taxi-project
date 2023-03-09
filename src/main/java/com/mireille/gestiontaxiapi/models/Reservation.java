@@ -13,18 +13,24 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reservation_id")
     private Long id;
+
     @ManyToOne()
-    @JoinColumn(name = "Client_Id")
+    @JoinColumn(name = "Client_login", referencedColumnName = "login")
     private Client client;
+
     @ManyToOne()
-    @JoinColumn(name = "Chauffeur_Id")
+    @JoinColumn(name = "Chauffeur_login", referencedColumnName = "login")
     private Chauffeur chauffeur;
+
     @Column(name = "date")
     private Date date;
+
     @Column(name = "heureDepart")
     private Date heureDepart;
+
     @Column(name = "heureDeArrive")
     private Date heureArrive;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "statut")
     private StatutResa statutResa;

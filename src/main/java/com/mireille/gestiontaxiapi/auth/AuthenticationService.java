@@ -37,16 +37,13 @@ public class AuthenticationService {
                 .userType(request.getUserType())
                 .build();
 
-        if (user.getUserType() == UserType.CLIENT) {
-            Client client = saveClient(request, user);
+
+             Client client = saveClient(request, user);
             jwtToken = jwtService.generateToken(client);
             authencationResponse.setUserType(UserType.CLIENT);
-        } else {
-            System.out.println("user Type non renseigné !");
-        }
 
         tokenRepository.save(UserToken.builder().token(jwtToken).build());
-
+        authencationResponse.setLogin(client.getLogin());
         authencationResponse.setToken(jwtToken);
         return authencationResponse;
     }
@@ -167,7 +164,7 @@ public class AuthenticationService {
         Chauffeur chauffeur = saveChauffeur(chauffeurRequest);
         jwtToken = jwtService.generateToken(chauffeur);
         authencationResponse.setUserType(UserType.CHAUFFEUR);
-
+        authencationResponse.setLogin(chauffeur.getLogin());
         tokenRepository.save(UserToken.builder().token(jwtToken).build());
 
         authencationResponse.setToken(jwtToken);

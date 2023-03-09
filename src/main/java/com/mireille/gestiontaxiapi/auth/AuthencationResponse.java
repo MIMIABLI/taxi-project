@@ -14,5 +14,6 @@ public class AuthencationResponse {
 
     private String token;
     private UserType userType;
+    private String login;
 
 }

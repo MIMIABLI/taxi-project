@@ -30,9 +30,21 @@ import java.util.List;
             return new ResponseEntity<>(reservationList, HttpStatus.OK);
         }
 
-        @GetMapping("/allacceptee/{id}")
-        public ResponseEntity<List<Reservation>> getAllReservationAcceptee(@PathVariable("id") Long id){
-            List<Reservation> reservationAccepteeList = reservationService.findAllAccepteeByChauffeur(id);
+        @GetMapping("/allbychauffeur/{login}")
+        public ResponseEntity<List<Reservation>> getAllReservationByChauffeur(@PathVariable("login") String login){
+            List<Reservation> reservationList=reservationService.findAllByChauffeur(login);
+            return new ResponseEntity<>(reservationList, HttpStatus.OK);
+        }
+
+        @GetMapping("/allbyclient/{login}")
+        public ResponseEntity<List<Reservation>> getAllReservationByClient(@PathVariable("login") String login){
+            List<Reservation> reservationList=reservationService.findAllByChauffeur(login);
+            return new ResponseEntity<>(reservationList, HttpStatus.OK);
+        }
+
+        @GetMapping("/allacceptedbychauffeur/{login}")
+        public ResponseEntity<List<Reservation>> getAllReservationAcceptee(@PathVariable("login") String login){
+            List<Reservation> reservationAccepteeList = reservationService.findAllAccepteeByChauffeur(login);
             return new ResponseEntity<>(reservationAccepteeList, HttpStatus.OK);
         }
 

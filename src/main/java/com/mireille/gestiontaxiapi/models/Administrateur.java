@@ -23,16 +23,22 @@ public class Administrateur implements UserDetails {
     @Id
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "login")
     private  String login;
+
     @Column(name = "nom")
     private String nom;
+
     @Column(name = "prenom")
     private String prenom;
+
     @Column(name = "password")
     private  String password;
+
     @Column(name = "email")
     private String email;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;

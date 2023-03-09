@@ -27,19 +27,15 @@ public class Client implements UserDetails {
     @Column(name = "idClient")
     private Long id;
 
-    @NonNull
     @Column(name = "nom")
     private String nom;
 
-    @NonNull
     @Column(name = "prenom")
     private String prenom;
 
-    @NonNull
-    @Column(name = "login")
+    @Column(name = "login", unique = true)
     private String login;
 
-    @NonNull
     @Column(name = "password")
     private String password;
 
@@ -49,7 +45,9 @@ public class Client implements UserDetails {
     @Column(name = "telephone")
     private String telephone;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private List<Reservation> listReservation;
 
     @Enumerated(EnumType.STRING)
