@@ -35,6 +35,8 @@ public class AuthenticationService {
                 .prenom(request.getPrenom())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .userType(request.getUserType())
+                .email(request.getEmail())
+                .telephone(request.getTelephone())
                 .build();
 
 
@@ -60,16 +62,19 @@ public class AuthenticationService {
         if(clientRepository.findByLogin(request.getLogin()).isPresent()) {
           var userVar = clientRepository.findByLogin(request.getLogin()).orElseThrow();
           authencationResponse.setUserType(UserType.CLIENT);
+          authencationResponse.setLogin(request.getLogin());
           jwtToken = jwtService.generateToken(userVar);
 
         } else if (chauffeurRepository.findByLogin(request.getLogin()).isPresent()) {
             var userVar = chauffeurRepository.findByLogin(request.getLogin()).orElseThrow();
             authencationResponse.setUserType(UserType.CHAUFFEUR);
+            authencationResponse.setLogin(request.getLogin());
             jwtToken = jwtService.generateToken(userVar);
 
         } else if (administrateurRepository.findByLogin(request.getLogin()).isPresent()) {
             var userVar = administrateurRepository.findByLogin(request.getLogin()).orElseThrow();
             authencationResponse.setUserType(UserType.ADMIN);
+            authencationResponse.setLogin(request.getLogin());
             jwtToken = jwtService.generateToken(userVar);
         }
 

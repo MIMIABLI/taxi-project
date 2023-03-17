@@ -1,6 +1,7 @@
 package com.mireille.gestiontaxiapi.models;
 
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,7 +16,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "T_CHAUFFEUR")
+@Table(name = "T_CHAUFFEUR",
+        uniqueConstraints = @UniqueConstraint(columnNames = "login"))
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Chauffeur implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,8 +63,8 @@ public class Chauffeur implements UserDetails {
     private String secteur;
 
     @OneToMany(mappedBy = "chauffeur",
-            cascade = CascadeType.ALL,
             orphanRemoval = true)
+    @JsonBackReference
     private List<Reservation> listReservation;
 
     @Enumerated(EnumType.STRING)

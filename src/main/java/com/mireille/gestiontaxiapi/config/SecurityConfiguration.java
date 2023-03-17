@@ -1,5 +1,6 @@
 package com.mireille.gestiontaxiapi.config;
 
+import jakarta.servlet.ServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

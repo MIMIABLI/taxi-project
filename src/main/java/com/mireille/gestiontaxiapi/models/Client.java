@@ -1,5 +1,6 @@
 package com.mireille.gestiontaxiapi.models;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +21,9 @@ import java.util.List;
 @Entity
 @Table(name = "T_CLIENT",
        uniqueConstraints = @UniqueConstraint(columnNames = "login"))
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Client implements UserDetails {
 
     @Id
@@ -46,8 +50,8 @@ public class Client implements UserDetails {
     private String telephone;
 
     @OneToMany(mappedBy = "client",
-            cascade = CascadeType.ALL,
             orphanRemoval = true)
+    @JsonBackReference
     private List<Reservation> listReservation;
 
     @Enumerated(EnumType.STRING)
@@ -60,7 +64,7 @@ public class Client implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return List.of(new SimpleGrantedAuthority(Role.USER.name()));
     }
 
     @Override

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 @Service
 public class TrajetService {
+
     private TrajetRepository trajetRepository;
 
     public TrajetService(TrajetRepository trajetRepository) {

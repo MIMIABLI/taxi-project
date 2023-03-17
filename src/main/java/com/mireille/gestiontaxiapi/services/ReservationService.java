@@ -29,8 +29,7 @@ public class ReservationService {
     }
 
     public Reservation saveReservation(Reservation reservation) {
-        this.reservationRepository.save(reservation);
-        return reservation;
+        return this.reservationRepository.save(reservation);
     }
 
     public void delete(Long Id) {

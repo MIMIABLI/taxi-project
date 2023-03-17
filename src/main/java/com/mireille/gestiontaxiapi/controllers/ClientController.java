@@ -1,7 +1,5 @@
 package com.mireille.gestiontaxiapi.controllers;
 
-
-import com.mireille.gestiontaxiapi.models.Chauffeur;
 import com.mireille.gestiontaxiapi.models.Client;
 import com.mireille.gestiontaxiapi.models.Role;
 import com.mireille.gestiontaxiapi.models.UserType;
@@ -50,8 +48,8 @@ import java.util.List;
 
         @PutMapping("/update")
         public ResponseEntity<Client> updateClient(@RequestBody Client client){
-            Client updateClient=clientService.update(client);
-            return new ResponseEntity<>(client,HttpStatus.OK);
+            Client updateClient=clientService.updateClient(client);
+            return new ResponseEntity<>(updateClient,HttpStatus.OK);
         }
         @DeleteMapping("/delete/{id}")
         public ResponseEntity<?> delete(@PathVariable("id") Long id){

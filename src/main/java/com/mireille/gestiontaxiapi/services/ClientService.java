@@ -1,6 +1,8 @@
 package com.mireille.gestiontaxiapi.services;
 
 import com.mireille.gestiontaxiapi.models.Client;
+import com.mireille.gestiontaxiapi.models.Role;
+import com.mireille.gestiontaxiapi.models.StatutResa;
 import com.mireille.gestiontaxiapi.repositories.ClientRepository;
 import org.springframework.stereotype.Service;
 
@@ -42,8 +44,7 @@ public class ClientService {
     }
 
     public Client saveClient(Client client) {
-        this.clientRepository.save(client);
-        return client;
+        return this.clientRepository.save(client);
     }
 
     public void delete(Long Id) {
@@ -56,8 +57,18 @@ public class ClientService {
         return clientList;
     }
 
-    public Client update(Client client) {
-        return this.saveClient(client);
+    public Client updateClient(Client client) {
+        Client updatedClient = new Client();
+        try {
+            updatedClient = findClientByLogin(client.getLogin());
+            updatedClient.setEmail(client.getEmail());
+            updatedClient.setTelephone(client.getTelephone());
+            this.clientRepository.save(updatedClient);
+
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return updatedClient;
 
     }
 

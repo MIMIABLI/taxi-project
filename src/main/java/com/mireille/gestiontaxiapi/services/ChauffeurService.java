@@ -38,8 +38,7 @@ public class ChauffeurService {
     }
 
     public Chauffeur saveChauffeur(Chauffeur chauffeur){
-        this.chauffeurRepository.save(chauffeur);
-        return chauffeur;
+        return this.chauffeurRepository.save(chauffeur);
     }
 
     public void delete(Long Id){
@@ -61,8 +60,8 @@ public class ChauffeurService {
 
     }
 
-    public Chauffeur update(Chauffeur user ){
-        return this.saveChauffeur(user);
+    public Chauffeur update(Chauffeur chauffeur ){
+        return this.saveChauffeur(chauffeur);
 
     }
 }

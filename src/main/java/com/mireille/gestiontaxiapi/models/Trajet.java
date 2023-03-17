@@ -33,7 +33,7 @@ public class Trajet {
     @Column(name = "secteur")
     private String secteur;
 
-    @OneToOne(mappedBy = "trajet", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "trajet")
     @JoinColumn(name = "trajet_id", referencedColumnName = "reservation_id")
     private Reservation reservation;
 

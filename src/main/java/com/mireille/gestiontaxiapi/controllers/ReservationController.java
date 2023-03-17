@@ -38,7 +38,7 @@ import java.util.List;
 
         @GetMapping("/allbyclient/{login}")
         public ResponseEntity<List<Reservation>> getAllReservationByClient(@PathVariable("login") String login){
-            List<Reservation> reservationList=reservationService.findAllByChauffeur(login);
+            List<Reservation> reservationList=reservationService.findAllByClientLogin(login);
             return new ResponseEntity<>(reservationList, HttpStatus.OK);
         }
 
