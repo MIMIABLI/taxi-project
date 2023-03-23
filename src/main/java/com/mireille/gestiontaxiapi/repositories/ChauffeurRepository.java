@@ -6,8 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+
 @Repository
 public interface ChauffeurRepository extends JpaRepository<Chauffeur,Long> {
     void deleteChauffeurById(Long Id);
+    Optional<Chauffeur> findByLogin(String login);
+    List<Chauffeur> findAllBySecteur(String secteur);
 
 }

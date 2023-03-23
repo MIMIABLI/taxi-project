@@ -24,12 +24,21 @@ public class ChauffeurService {
 
         }
         return chauffeur;
-
-
     }
-    public Chauffeur saveChauffeur(Chauffeur user){
-        this.chauffeurRepository.save(user);
-        return user;
+
+    public Chauffeur findChauffeurByLogin(String login) throws Exception {
+        Optional<Chauffeur> optionalChauffeur=this.chauffeurRepository.findByLogin(login);
+        Chauffeur chauffeur= new Chauffeur();
+        if (optionalChauffeur.isPresent()) {
+            chauffeur= optionalChauffeur.get();
+        }else {
+            throw new Exception("login introuvable");
+        }
+        return chauffeur;
+    }
+
+    public Chauffeur saveChauffeur(Chauffeur chauffeur){
+        return this.chauffeurRepository.save(chauffeur);
     }
 
     public void delete(Long Id){
@@ -43,8 +52,16 @@ public class ChauffeurService {
         return chauffeursList;
 
     }
-    public Chauffeur update(Chauffeur user ){
-        return this.saveChauffeur(user);
+
+    public List<Chauffeur> findAllBySecteur(String secteur){
+        List<Chauffeur> chauffeursListBySecteur = new ArrayList<>();
+        chauffeursListBySecteur = this.chauffeurRepository.findAllBySecteur(secteur);
+        return chauffeursListBySecteur;
+
+    }
+
+    public Chauffeur update(Chauffeur chauffeur ){
+        return this.saveChauffeur(chauffeur);
 
     }
 }

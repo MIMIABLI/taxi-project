@@ -1,10 +1,13 @@
 package com.mireille.gestiontaxiapi.controllers;
 
 import com.mireille.gestiontaxiapi.models.Administrateur;
+import com.mireille.gestiontaxiapi.models.Chauffeur;
+import com.mireille.gestiontaxiapi.models.Role;
+import com.mireille.gestiontaxiapi.models.UserType;
 import com.mireille.gestiontaxiapi.services.AdministrateurService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +22,8 @@ public class AdministreurController {
     }
     @PostMapping("/add")
     public ResponseEntity<Administrateur> addAdmin(@RequestBody Administrateur administrateur ){
+        administrateur.setRole(Role.ADMIN);
+        administrateur.setUserType(UserType.ADMIN);
         Administrateur administrateur1 = administrateurService.saveAdmin(administrateur);
         return new ResponseEntity<>(administrateur1, HttpStatus.CREATED);
     }
@@ -33,7 +38,12 @@ public class AdministreurController {
     public ResponseEntity<Administrateur> getAdminById(@PathVariable("id") Long id) throws Exception {
        Administrateur administrateur= administrateurService.findAdministrateurById(id);
        return new ResponseEntity<>(administrateur, HttpStatus.OK);
+    }
 
+    @GetMapping("/findbylogin/{login}")
+    public ResponseEntity<Administrateur> getAdminById(@PathVariable("login") String login) throws Exception {
+        Administrateur administrateur= administrateurService.findAdministrateurByLogin(login);
+        return new ResponseEntity<>(administrateur, HttpStatus.OK);
     }
 
     @PutMapping("/update")

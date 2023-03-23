@@ -17,8 +17,9 @@ import java.util.List;
         public TrajetController(TrajetService trajetService){
             this.trajetService = trajetService;
         }
+
         @PostMapping("/add")
-        public ResponseEntity<Trajet> addTrajet(@RequestBody Trajet trajet ){
+        public ResponseEntity<Trajet> addTrajet(@RequestBody Trajet trajet) {
             Trajet newTrajet = trajetService.saveTrajet(trajet);
             return new ResponseEntity<>(newTrajet, HttpStatus.CREATED);
         }
@@ -27,6 +28,7 @@ import java.util.List;
             List<Trajet> trajetList=trajetService.findAll();
             return new ResponseEntity<>(trajetList, HttpStatus.OK);
         }
+
         @GetMapping("/find/{id}")
         public ResponseEntity<Trajet> getTrajetById(@PathVariable("id") Long id) throws Exception {
             Trajet trajet=trajetService.findTrajetById(id);
