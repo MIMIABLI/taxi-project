@@ -6,6 +6,7 @@ import com.mireille.gestiontaxiapi.models.Role;
 import com.mireille.gestiontaxiapi.models.UserType;
 import com.mireille.gestiontaxiapi.services.ChauffeurService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,7 @@ public class ChauffeurController {
             this.chauffeurService = chauffeurService;
         }
 
-        @PostMapping("/add")
+        @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<Chauffeur> addChauffeur(@RequestBody Chauffeur chauffeur ){
             chauffeur.setUserType(UserType.CHAUFFEUR);
             chauffeur.setRole(Role.USER);
@@ -34,39 +35,39 @@ public class ChauffeurController {
             return new ResponseEntity<>(newChauffeur, HttpStatus.CREATED);
         }
 
-        @GetMapping("/all")
+        @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<List<Chauffeur>> getAllChauffeur(){
             List<Chauffeur> chauffeurList=chauffeurService.findAll();
             return new ResponseEntity<>(chauffeurList, HttpStatus.OK);
         }
 
-        @GetMapping("/allbysecteur/{secteur}")
+        @GetMapping(value = "/allbysecteur/{secteur}", produces = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<List<Chauffeur>> getAllChauffeurBySecteur(@PathVariable("secteur") String secteur){
             List<Chauffeur> chauffeurListBySecteur = chauffeurService.findAllBySecteur(secteur);
             return new ResponseEntity<>(chauffeurListBySecteur, HttpStatus.OK);
         }
 
-        @GetMapping("/find/{id}")
+        @GetMapping(value = "/find/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<Chauffeur> getChauffeurById(@PathVariable("id") Long id) throws Exception {
             Chauffeur chauffeur= chauffeurService.findChauffeurById(id);
             return new ResponseEntity<>(chauffeur, HttpStatus.OK);
 
         }
 
-    @GetMapping("/findbylogin/{login}")
+    @GetMapping(value = "/findbylogin/{login}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Chauffeur> getChauffeurByLogin(@PathVariable("login") String login) throws Exception {
         Chauffeur chauffeur= chauffeurService.findChauffeurByLogin(login);
         return new ResponseEntity<>(chauffeur, HttpStatus.OK);
 
     }
 
-        @PutMapping("/update")
+        @PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<Chauffeur> updateChauffeur(@RequestBody Chauffeur chauffeur){
             Chauffeur newChauffeur=chauffeurService.update(chauffeur);
             return new ResponseEntity<>(newChauffeur,HttpStatus.OK);
         }
 
-        @DeleteMapping("/delete/{id}")
+        @DeleteMapping(value = "/delete/{id}")
         public ResponseEntity<?> delete(@PathVariable("id") Long id){
             chauffeurService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);

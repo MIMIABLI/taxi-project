@@ -1,34 +1,36 @@
 package com.mireille.gestiontaxiapi.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 import jakarta.persistence.*;
 import lombok.NonNull;
 
+import java.io.Serializable;
 import java.util.Date;
 @Data
 @Entity
 @Table(name = "T_RESERVATION")
 @JsonIdentityInfo(
+        scope = Reservation.class,
         generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
-public class Reservation {
+        property = "idReservation")
+@JsonSerialize
+public class Reservation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reservation_id")
+    @JsonProperty("idReservation")
     private Long id;
 
+    @JsonView
     @ManyToOne
     @JoinColumn(name = "Client_login", referencedColumnName = "login")
-    @JsonManagedReference
     private Client client;
 
+    @JsonView
     @ManyToOne
     @JoinColumn(name = "Chauffeur_login", referencedColumnName = "login")
-    @JsonManagedReference
     private Chauffeur chauffeur;
 
     @Column(name = "date")
@@ -46,7 +48,10 @@ public class Reservation {
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "trajet_id", referencedColumnName = "trajet_id")
+    @JsonManagedReference
     private Trajet trajet;
 
-
+    @JsonCreator
+    public Reservation() {
+    }
 }

@@ -6,13 +6,14 @@ import com.mireille.gestiontaxiapi.models.UserType;
 import com.mireille.gestiontaxiapi.services.ClientService;
 import com.mireille.gestiontaxiapi.services.TrajetService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-    @Controller
+    @RestController
     @RequestMapping("/client")
     public class ClientController {
 
@@ -21,7 +22,7 @@ import java.util.List;
             this.clientService = clientService;
         }
 
-        @PostMapping("/add")
+        @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<Client> addClient(@RequestBody Client client ){
             client.setUserType(UserType.CLIENT);
             client.setRole(Role.USER);
@@ -29,29 +30,29 @@ import java.util.List;
             return new ResponseEntity<>(newClient, HttpStatus.CREATED);
         }
 
-        @GetMapping("/all")
+        @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<List<Client>> getAllClient(){
             List<Client> clientList=clientService.findAll();
             return new ResponseEntity<>(clientList, HttpStatus.OK);
         }
-        @GetMapping("/find/{id}")
+        @GetMapping(value = "/find/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<Client> getClientById(@PathVariable("id") Long id) throws Exception {
             Client client= clientService.findClientById(id);
             return new ResponseEntity<>(client, HttpStatus.OK);
         }
 
-        @GetMapping("/findByLogin/{login}")
+        @GetMapping(value = "/findByLogin/{login}", produces = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<Client> getClientById(@PathVariable("login") String login) throws Exception {
             Client client = clientService.findClientByLogin(login);
             return new ResponseEntity<>(client, HttpStatus.OK);
         }
 
-        @PutMapping("/update")
+        @PutMapping(value ="/update", consumes = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<Client> updateClient(@RequestBody Client client){
             Client updateClient=clientService.updateClient(client);
             return new ResponseEntity<>(updateClient,HttpStatus.OK);
         }
-        @DeleteMapping("/delete/{id}")
+        @DeleteMapping(value ="/delete/{id}")
         public ResponseEntity<?> delete(@PathVariable("id") Long id){
             clientService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);

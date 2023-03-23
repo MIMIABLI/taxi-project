@@ -2,28 +2,34 @@ package com.mireille.gestiontaxiapi.models;
 
 
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "T_CHAUFFEUR",
         uniqueConstraints = @UniqueConstraint(columnNames = "login"))
-@JsonIdentityInfo(
+/*@JsonIdentityInfo(
+        scope = Chauffeur.class,
         generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
-public class Chauffeur implements UserDetails {
+        property = "idChauffeur")*/
+@JsonSerialize
+public class Chauffeur implements UserDetails, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty("idChauffeur")
     private Long id;
 
     @Column(name = "nom")
@@ -62,9 +68,9 @@ public class Chauffeur implements UserDetails {
     @Column(name = "secteur")
     private String secteur;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "chauffeur",
             orphanRemoval = true)
-    @JsonBackReference
     private List<Reservation> listReservation;
 
     @Enumerated(EnumType.STRING)
@@ -77,6 +83,10 @@ public class Chauffeur implements UserDetails {
     public Chauffeur(Role role, UserType userType) {
         this.role = role;
         this.userType = userType;
+    }
+
+    @JsonCreator
+    public Chauffeur() {
     }
 
     @Override

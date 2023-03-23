@@ -1,6 +1,8 @@
 package com.mireille.gestiontaxiapi.models;
 
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,24 +13,28 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "T_CLIENT",
        uniqueConstraints = @UniqueConstraint(columnNames = "login"))
-@JsonIdentityInfo(
+/*@JsonIdentityInfo(
+        scope = Client.class,
         generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
-public class Client implements UserDetails {
+        property = "idClient")*/
+@JsonSerialize
+public class Client implements UserDetails, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idClient")
+    @JsonProperty("idClient")
     private Long id;
 
     @Column(name = "nom")
@@ -49,9 +55,9 @@ public class Client implements UserDetails {
     @Column(name = "telephone")
     private String telephone;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client",
             orphanRemoval = true)
-    @JsonBackReference
     private List<Reservation> listReservation;
 
     @Enumerated(EnumType.STRING)
@@ -61,6 +67,9 @@ public class Client implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
+    @JsonCreator
+    public Client() {
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
