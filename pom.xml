@@ -16,6 +16,7 @@
 	<properties>
 		<java.version>17</java.version>
 	</properties>
+	<packaging>jar</packaging>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -74,6 +75,7 @@
 			<artifactId>tomcat-embed-core</artifactId>
 			<version>10.1.4</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.heroku.sdk/heroku-maven-plugin -->
 	</dependencies>
 
 	<build>
