@@ -1,8 +1,8 @@
-package com.mireille.gestiontaxiapi.controllers;
+package com.mireille.gestiontaxiapi.dao.controllers;
 
 
+import com.mireille.gestiontaxiapi.dao.services.TrajetService;
 import com.mireille.gestiontaxiapi.models.Trajet;
-import com.mireille.gestiontaxiapi.services.TrajetService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

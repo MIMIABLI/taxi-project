@@ -1,7 +1,7 @@
-package com.mireille.gestiontaxiapi.services;
+package com.mireille.gestiontaxiapi.dao.services;
 
 import com.mireille.gestiontaxiapi.models.Chauffeur;
-import com.mireille.gestiontaxiapi.repositories.ChauffeurRepository;
+import com.mireille.gestiontaxiapi.dao.repositories.ChauffeurRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

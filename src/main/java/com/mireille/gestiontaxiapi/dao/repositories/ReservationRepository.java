@@ -1,4 +1,4 @@
-package com.mireille.gestiontaxiapi.repositories;
+package com.mireille.gestiontaxiapi.dao.repositories;
 
 import com.mireille.gestiontaxiapi.models.Reservation;
 import com.mireille.gestiontaxiapi.models.Trajet;

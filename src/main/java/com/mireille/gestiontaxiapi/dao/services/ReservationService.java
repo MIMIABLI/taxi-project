@@ -1,6 +1,6 @@
-package com.mireille.gestiontaxiapi.services;
+package com.mireille.gestiontaxiapi.dao.services;
 import com.mireille.gestiontaxiapi.models.Reservation;
-import com.mireille.gestiontaxiapi.repositories.ReservationRepository;
+import com.mireille.gestiontaxiapi.dao.repositories.ReservationRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

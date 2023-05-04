@@ -2,9 +2,9 @@ package com.mireille.gestiontaxiapi.auth;
 
 import com.mireille.gestiontaxiapi.config.JwtService;
 import com.mireille.gestiontaxiapi.models.*;
-import com.mireille.gestiontaxiapi.repositories.AdministrateurRepository;
-import com.mireille.gestiontaxiapi.repositories.ChauffeurRepository;
-import com.mireille.gestiontaxiapi.repositories.ClientRepository;
+import com.mireille.gestiontaxiapi.dao.repositories.AdministrateurRepository;
+import com.mireille.gestiontaxiapi.dao.repositories.ChauffeurRepository;
+import com.mireille.gestiontaxiapi.dao.repositories.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,7 +38,6 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .telephone(request.getTelephone())
                 .build();
-
 
              Client client = saveClient(request, user);
             jwtToken = jwtService.generateToken(client);

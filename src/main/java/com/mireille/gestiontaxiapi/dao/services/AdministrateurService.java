@@ -1,7 +1,7 @@
-package com.mireille.gestiontaxiapi.services;
+package com.mireille.gestiontaxiapi.dao.services;
 
 import com.mireille.gestiontaxiapi.models.Administrateur;
-import com.mireille.gestiontaxiapi.repositories.AdministrateurRepository;
+import com.mireille.gestiontaxiapi.dao.repositories.AdministrateurRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

@@ -1,14 +1,13 @@
-package com.mireille.gestiontaxiapi.controllers;
+package com.mireille.gestiontaxiapi.dao.controllers;
 
+import com.mireille.gestiontaxiapi.dao.services.ClientService;
+import com.mireille.gestiontaxiapi.dao.services.TrajetService;
 import com.mireille.gestiontaxiapi.models.Client;
 import com.mireille.gestiontaxiapi.models.Role;
 import com.mireille.gestiontaxiapi.models.UserType;
-import com.mireille.gestiontaxiapi.services.ClientService;
-import com.mireille.gestiontaxiapi.services.TrajetService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

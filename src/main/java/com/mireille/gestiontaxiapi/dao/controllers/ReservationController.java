@@ -1,7 +1,7 @@
-package com.mireille.gestiontaxiapi.controllers;
+package com.mireille.gestiontaxiapi.dao.controllers;
 
+import com.mireille.gestiontaxiapi.dao.services.ReservationService;
 import com.mireille.gestiontaxiapi.models.Reservation;
-import com.mireille.gestiontaxiapi.services.ReservationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

@@ -1,9 +1,7 @@
-package com.mireille.gestiontaxiapi.services;
+package com.mireille.gestiontaxiapi.dao.services;
 
 import com.mireille.gestiontaxiapi.models.Client;
-import com.mireille.gestiontaxiapi.models.Role;
-import com.mireille.gestiontaxiapi.models.StatutResa;
-import com.mireille.gestiontaxiapi.repositories.ClientRepository;
+import com.mireille.gestiontaxiapi.dao.repositories.ClientRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

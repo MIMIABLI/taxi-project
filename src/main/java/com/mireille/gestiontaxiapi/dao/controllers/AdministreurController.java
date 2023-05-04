@@ -1,13 +1,11 @@
-package com.mireille.gestiontaxiapi.controllers;
+package com.mireille.gestiontaxiapi.dao.controllers;
 
+import com.mireille.gestiontaxiapi.dao.services.AdministrateurService;
 import com.mireille.gestiontaxiapi.models.Administrateur;
-import com.mireille.gestiontaxiapi.models.Chauffeur;
 import com.mireille.gestiontaxiapi.models.Role;
 import com.mireille.gestiontaxiapi.models.UserType;
-import com.mireille.gestiontaxiapi.services.AdministrateurService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -1,6 +1,6 @@
-package com.mireille.gestiontaxiapi.services;
+package com.mireille.gestiontaxiapi.dao.services;
 import com.mireille.gestiontaxiapi.models.Trajet;
-import com.mireille.gestiontaxiapi.repositories.TrajetRepository;
+import com.mireille.gestiontaxiapi.dao.repositories.TrajetRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

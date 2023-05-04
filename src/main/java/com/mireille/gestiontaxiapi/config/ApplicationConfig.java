@@ -1,8 +1,8 @@
 package com.mireille.gestiontaxiapi.config;
 
-import com.mireille.gestiontaxiapi.repositories.AdministrateurRepository;
-import com.mireille.gestiontaxiapi.repositories.ChauffeurRepository;
-import com.mireille.gestiontaxiapi.repositories.ClientRepository;
+import com.mireille.gestiontaxiapi.dao.repositories.AdministrateurRepository;
+import com.mireille.gestiontaxiapi.dao.repositories.ChauffeurRepository;
+import com.mireille.gestiontaxiapi.dao.repositories.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package com.mireille.gestiontaxiapi.repositories;
+package com.mireille.gestiontaxiapi.dao.repositories;
 
 import com.mireille.gestiontaxiapi.models.Chauffeur;
 import org.springframework.data.jpa.repository.JpaRepository;

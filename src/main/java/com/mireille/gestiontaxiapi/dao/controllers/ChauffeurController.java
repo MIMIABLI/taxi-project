@@ -1,10 +1,10 @@
-package com.mireille.gestiontaxiapi.controllers;
+package com.mireille.gestiontaxiapi.dao.controllers;
 
 
+import com.mireille.gestiontaxiapi.dao.services.ChauffeurService;
 import com.mireille.gestiontaxiapi.models.Chauffeur;
 import com.mireille.gestiontaxiapi.models.Role;
 import com.mireille.gestiontaxiapi.models.UserType;
-import com.mireille.gestiontaxiapi.services.ChauffeurService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
